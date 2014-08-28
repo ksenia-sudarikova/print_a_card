@@ -244,7 +244,7 @@ $.keyboard = function(el, options){
 		}
 
 		// basic positioning before it is set by position utility
-		base.$keyboard.css({ position: 'absolute', left: 0, top: 0 });
+		// base.$keyboard.css({ position: 'absolute', left: 0, top: 0 });
 
 		// beforeVisible event
 		base.$el.trigger( 'beforeVisible.keyboard', [ base, base.el ] );
@@ -265,9 +265,9 @@ $.keyboard = function(el, options){
 		}
 
 		// position after keyboard is visible (required for UI position utility) and appropriately sized
-		if ($.ui.position) {
-			base.$keyboard.position(base.position);
-		}
+		// if ($.ui.position) {
+		// 	base.$keyboard.position(base.position);
+		// }
 
 		if (o.initialFocus) {
 			base.$preview.focus();
