@@ -287,8 +287,8 @@
 		var tools_width = $('#card-width').val();
 		var tools_height = $('#card-height').val();
 
-		$.cookie('card-dimentions-width', card_width, { expires: 70 });
-		$.cookie('card-dimentions-height', card_height, { expires: 70 });
+		$.cookie('card-dimentions-width', card_width);
+		$.cookie('card-dimentions-height', card_height);
 
 		$('.card-form').css({
 			width: tools_width,
