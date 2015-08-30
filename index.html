@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Бейжик 1</title>
+
+	<!-- jQuery & jQuery UI + theme (required) -->
+	<!-- http://blog.jqueryui.com/2012/11/jquery-ui-1-9-2 -->
+	<link href="keyboard/css/jquery-ui.css" rel="stylesheet">
+	<script src="keyboard/js/jquery.js"></script>
+
+
+	<!-- keyboard widget css & script (required) -->
+	<link href="keyboard/css/keyboard.css" rel="stylesheet">
+	<script src="keyboard/js/jquery.keyboard.js"></script>
+	<script src="keyboard/js/jquery.cookie.js"></script>
+
+	<!-- preloaded keyboard layout -->
+	<script src="keyboard/layouts/russian-custom.js" charset="utf-8"></script>
+
+	<!-- theme switcher
+	<script src="http://jqueryui.com/themeroller/themeswitchertool/"></script> -->
+
+	<script>
+	// Change display language, if the definitions are available
+	if (typeof(language) === 'undefined') { var language = {}; };
+	var showKb = function(name, lang){
+		if (language.hasOwnProperty(lang)){
+			$.extend(true, $.keyboard.defaultOptions, language[lang]);
+		} else {
+			$.extend(true, $.keyboard.defaultOptions, language.basic);
+		}
+		$('#multi').keyboard({
+			layout: name,
+			usePreview: false,
+			autoAccept: true,
+			alwaysOpen: true,
+			caretToEnd   : true,
+			change: function(e, keyboard, el) {
+				$('#card-name').html($('.card-form input').val());
+			},
+			visible: function(e, keyboard, el) {
+				$('.print-key').css({position: 'absolute', top: $('.ui-keyboard-enter').offset().top, left: $('.ui-keyboard-enter').offset().left})
+				
+			}
+			// ,
+			// visible: function(e, keyboard, el) {
+   //      keyboard.altActive = true;
+   //      keyboard.showKeySet();
+	  //   }
+		});
+	};
+
+	// Renaming some of the default keyboard key names (including symbols)
+	// *Note* this will effect ALL layouts on this page - but will be overridden by specific layout languages
+	language.basic = {
+		display : {
+			'a'      : '\u2714:Accept (Shift-Enter)', // check mark - same action as accept
+			'accept' : '\u2714 Accept:Accept (Shift-Enter)', // check mark
+			'alt'    : 'AltGr:Alternate Graphemes',
+			'b'      : '\u2190:Backspace',    // Left arrow (same as &larr;)
+			'bksp'   : ($.browser.msie ? '\u2190 Bksp:Backspace' : '<-- Стереть:Backspace'), // Arrow with X (not in IE) or Left arrow (same as &larr;)
+			'c'      : '\u2716:Cancel (Esc)', // big X, close - same action as cancel
+			'cancel' : '\u2716 Cancel:Cancel (Esc)', // big X, close - same action as cancel
+			'clear'  : 'C:Clear',             // clear num pad
+			'combo'  : '\u00f6:Toggle Combo Keys',
+			'dec'    : '.:Decimal',           // decimal point for num pad (optional), change '.' to ',' for European format
+			'e'      : '\u21b5:Enter',        // down, then left arrow - enter symbol
+			'enter'  : '\u21b5 Напечатать:Enter',  // down, then left arrow - enter symbol
+			'lock'   : '\u21ea Lock:Caps Lock', // caps lock
+			's'      : '\u21e7:Shift',        // thick hollow up arrow
+			'shift'  : '\u21e7 Shift:Shift',  // thick hollow up arrow
+			'sign'   : '\u00b1:Change Sign',  // +/- sign for num pad
+			'space'  : '&nbsp;:Space',
+			't'      : '\u21e5:Tab',          // right arrow to bar (used since this virtual keyboard works with one directional tabs)
+			'tab'    : '\u21e5 Tab:Tab'       // right arrow to bar (used since this virtual keyboard works with one directional tabs)
+		},
+		// Message added to the key title while hovering, if the mousewheel plugin exists
+		wheelMessage : 'Use mousewheel to see other keys'
+	};
+
+	$(function(){
+			showKb( 'russian-qwerty', 'russian-custom' );
+	});
+	</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54313211-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+<body>
+
+<div id="page-wrap">
+	<div id="switcher"></div>
+	<br>
+	<div class="card-form">
+
+		<h2 class="not-for-print"><label for="multi">Меня зовут</label></h2>
+		<div class="name-field not-for-print">
+			<input id="multi" type="text">
+		</div>
+		<div class="class-name not-for-print">
+			<label for="class-name">Мой класс</label>
+			<select id="class-name-select">
+				<option>1 А</option>
+				<option>1 Б</option>
+				<option>1 В</option>
+				<option>1 Г</option>
+				<option>1 Д</option>
+				<option>1 Е</option>
+				<option>1 Ё</option>
+				<option>1 Ж</option>
+				<option>1 З</option>
+			</select>
+		</div>
+
+		<h3 class="for-print name" id="card-name"></h3>
+		<div class="for-print class-name" id="card-class">1 A</div>
+	</div>
+
+	<div class="wand"></div>
+	<div class="tools">
+		<a class="mac" href="#">mac</a>
+		<a class="win" href="#">win</a>
+
+		<label for="card-width">Ширина</label>
+		<input type="text" id="card-width">
+
+		<label for="card-height">Высота</label>
+		<input type="text" id="card-height">
+
+		<button>Применить</button>
+
+		<div class="dimention" style="width: 1cm;">1  cm</div>
+		<div class="dimention" style="width: 10mm;">10  mm</div>
+	</div>
+
+	<style>
+	.card-form {
+		position: relative;
+		margin: 0 auto 50px;
+		width: 8.1cm; height: 5.3cm;
+		border: 1px solid #000;
+		text-align: center;
+		font: 24px/1 Arial, sans-serif;
+		font-size: 20px
+	}
+	.card-form .name-field {
+		margin: 0 1cm;
+	}
+	.card-form input {
+		width: 100%; height: 40px;
+		font: bold 36px/1 Arial, sans-serif; text-transform: capitalize;
+		text-align: center;
+	}
+	.card-form .name {
+		margin: 30px 0.6cm 20px;
+		word-wrap: break-word;
+		font-size: 1.5cm; font-weight: normal; text-transform: capitalize;
+	}
+	.card-form .class-name {
+		position: absolute; bottom: 0.5cm; right: 1cm;
+		text-align: right;
+		font: bold 26px/1 Arial, sans-serif;
+	}
+	.card-form .class-name select {
+		font: bold 26px/1 Arial, sans-serif;
+	}
+	.ui-keyboard-enter {
+		height: 4.7em !important; margin-bottom: -3em !important;
+		vertical-align: top; font-size: 0.9em !important;
+	}
+	.ui-keyboard-space {
+		width: 19.6em; margin-left: -8em;
+	}
+	.for-print {
+		display: none;
+	}
+	.print-key {
+		cursor: pointer;
+		position: absolute; z-index: 16002;
+		width: 9.6em; height: 5.1em;
+		background: #ccc;
+		opacity: 0;
+	}
+	.print-key:hover {
+		opacity: 0.3;
+	}
+
+	.wand {
+		cursor: pointer;
+		opacity: 0;
+		position: fixed; bottom: 30px; right: 30px;
+		width: 50px; height: 50px;
+		background: url(keyboard/img/wand.png) no-repeat; background-size: cover;
+	}
+	.wand:hover {
+		opacity: 0.6;
+	}
+	.wand-open {
+		opacity: 1;
+	}
+
+	.tools {
+		display: none;
+		position: fixed; bottom: 30px; right: 110px;
+	}
+	.tools .dimention {
+		display: inline-block;
+		white-space: nowrap;
+		border-top: 2px solid #000; margin-left: 20px;
+	}
+
+	.tools input {
+		margin-right: 20px;
+		width: 50px;
+	}
+
+	.tools-open {
+		display: block;
+	}
+
+	.not-for-print {
+		/*display: none;*/
+	}
+
+
+	@media print {
+		.ui-keyboard,
+		.not-for-print {
+	  	display: none;
+		}
+
+		.for-print {
+			display: block;
+		}
+
+		.card-form .class-name {
+			right: 0.6cm;
+			font-size: 1cm; font-weight: normal;
+		}
+	}
+
+	</style>
+</div>
+<div class="print-key"></div>
+<script>
+	// init card dimentions
+	var card_width = $.cookie('card-dimentions-width');
+	var card_height = $.cookie('card-dimentions-height');
+	init_card_dimentions(card_width, card_height);
+
+	// capture card class
+	$('#class-name-select').change(function(){
+		$('#card-class').html($('#class-name-select').val());
+	});
+	// print button
+	$(document).delegate('.print-key', 'click', function(){
+		print();
+	});
+
+	// show settings
+	$('.wand').click(function(){
+		$('.wand').toggleClass('wand-open');
+		$('.tools').toggleClass('tools-open');
+	});
+
+	// apply card dimentions
+	apply_card_dimentions();
+
+	$('.tools button').click(function(){
+		apply_card_dimentions();
+	});
+
+	// apply card dimentions from preset
+	$('.tools .mac').click(function(){
+		init_card_dimentions('8.1cm', '5.3cm')
+		apply_card_dimentions();
+	});
+
+	// apply card dimentions from preset
+	$('.tools .win').click(function(){
+		init_card_dimentions('11.1cm', '6.3cm')
+		apply_card_dimentions();
+	});
+
+	function init_card_dimentions(card_width, card_height){
+		$('#card-width').val( card_width != undefined ? card_width : '8.1cm');
+		$('#card-height').val( card_height != undefined ? card_height : '5.3cm');
+	}
+
+	function apply_card_dimentions(){
+		var tools_width = $('#card-width').val();
+		var tools_height = $('#card-height').val();
+
+		$.cookie('card-dimentions-width', tools_width, { expires: 70 });
+		$.cookie('card-dimentions-height', tools_height, { expires: 70 });
+
+		$('.card-form').css({
+			width: tools_width,
+			height: tools_height
+		});
+	}
+</script>
+
+</body>
+</html>
